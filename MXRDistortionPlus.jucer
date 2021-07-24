@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="i9XxMf" name="MXRDistortionPlus" projectType="audioplug"
               useAppConfig="0" addUsingNamespaceToJuceHeader="0" displaySplashScreen="1"
-              jucerFormatVersion="1">
+              jucerFormatVersion="1" companyName="BrutalARAudio">
   <MAINGROUP id="DASlYp" name="MXRDistortionPlus">
     <GROUP id="{99D0CB6C-2964-54D3-B838-D69B117934D1}" name="Source">
       <FILE id="T7lNDU" name="PluginProcessor.cpp" compile="1" resource="0"
