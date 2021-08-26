@@ -4,10 +4,10 @@
 clc;clear; close all;
 Fs = 44100;
 Ts = 1/Fs;
-f = 1000;
+f = 2000;
 t = [0:Ts:0.01].';
 
-Vi = 0.1 * sin(2*pi*f*t);
+Vi = 0.1* sin(2*pi*f*t);
 
 N = length(Vi);
 C1 = 47e-9;
@@ -25,6 +25,7 @@ x2 = 0;
 Vo = zeros(N,1);
 Vb = 0;
 Vr1 = 0;
+
 for n = 1:N
    Vb = Gb*Vi(n,1) - R1*Gb*x1;
    Vr1 = Vi(n,1) - Vb;
@@ -51,6 +52,40 @@ plot(F , 20*log10(abs(H)));
 figure;
 semilogx(F , 20*log10(abs(H)));
 
-%%
+
 Vi2 = Vo;
 
+% Diod parameters
+eta = 1;
+Is = 1*10^-15;
+Vt = 26*10^-3;
+
+C2 = 1*10^-9;
+R2 = Ts/(2*C2);
+R5 = 10e3;
+
+Vo2 = zeros(N,1);
+x = 0;
+Vd = 0;
+thr = 0.000000001;
+for n = 1:N 
+    
+    % Step 1: Find voltage across nonlinear componenets
+    iter = 1;
+    num = -Vi(n,1)/R1 + Is * sinh(Vd/(eta*Vt)) + (1/R5 + 1/R2)*Vd - x;
+    while (iter < 50 && abs(num) > thr)
+        den = (Is/(eta*Vt)) * cosh(Vd/(eta*Vt)) + (1/R5 + 1/R2);
+        Vd = Vd - num/den;
+        num = -Vi(n,1)/R1 + Is * sinh(Vd/(eta*Vt)) + (1/R5 + 1/R2)*Vd - x;
+        iter = iter + 1;
+    end
+    % Step 2: Calculate Output
+    Vo2(n,1) = Vd;
+    
+    % Step 3: Update State Variables
+    x = 2/R2*(Vo2(n,1)) - x;
+end
+
+figure;
+
+plot(t, Vo2);
