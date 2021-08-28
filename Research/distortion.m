@@ -4,7 +4,7 @@
 clc;clear; close all;
 Fs = 44100;
 Ts = 1/Fs;
-f = 2000;
+f = 1000;
 t = [0:Ts:0.01].';
 
 Vi = 0.1* sin(2*pi*f*t);
@@ -41,23 +41,28 @@ for n = 1:N
 end
 
 % Waveform
+subplot(3,3,2);
 plot(t,Vi);
-figure;
+title('Effect Vi');
 
+subplot(3,3,4);
 plot(t, Vo);
-
-figure;
+title('Distortion stage');
+subplot(3,3,5);
 [H,F] = freqz(Vo,1,4096,Fs);
 plot(F , 20*log10(abs(H)));
-figure;
+title('Distortion stage freq response');
+
+subplot(3,3,6);
 semilogx(F , 20*log10(abs(H)));
+title('Distortion stage freq response');
 
-
+% clipping stage
 Vi2 = Vo;
 
 % Diod parameters
 eta = 1;
-Is = 1*10^-15;
+Is = 1*10^-6;
 Vt = 26*10^-3;
 
 C2 = 1*10^-9;
@@ -68,24 +73,41 @@ Vo2 = zeros(N,1);
 x = 0;
 Vd = 0;
 thr = 0.000000001;
+b = 1.0;
+Ga = (1/R5 + 1/R2);
 for n = 1:N 
-    
     % Step 1: Find voltage across nonlinear componenets
     iter = 1;
-    num = -Vi(n,1)/R1 + Is * sinh(Vd/(eta*Vt)) + (1/R5 + 1/R2)*Vd - x;
-    while (iter < 50 && abs(num) > thr)
-        den = (Is/(eta*Vt)) * cosh(Vd/(eta*Vt)) + (1/R5 + 1/R2);
-        Vd = Vd - num/den;
-        num = -Vi(n,1)/R1 + Is * sinh(Vd/(eta*Vt)) + (1/R5 + 1/R2)*Vd - x;
+    fd = -Vi2(n,1)/R2 + Is * sinh(Vd/(eta*Vt)) + Ga*Vd - x;
+    while (iter < 50 && abs(fd) > thr)
+        fdd = (Is/(eta*Vt)) * cosh(Vd/(eta*Vt)) + Ga;
+        Vnew = Vd - b * fd / fdd;
+        fdNew = -Vi2(n,1)/R2 + Is * sinh(Vnew/(eta*Vt)) + Ga*Vnew - x;
+        if abs(fdNew) < abs(fd)
+            Vd = Vnew;
+            b = 1.0;
+        else
+            b = b * 0.5;
+        end
+        
+        fd = -Vi2(n,1)/R2 + Is * sinh(Vd/(eta*Vt)) + Ga*Vd - x;
         iter = iter + 1;
     end
     % Step 2: Calculate Output
     Vo2(n,1) = Vd;
     
     % Step 3: Update State Variables
-    x = 2/R2*(Vo2(n,1)) - x;
+    x = 2*(Vo2(n,1))/R2 - x;
 end
 
-figure;
-
+subplot(3,3,7);
 plot(t, Vo2);
+title('Clipping stage');
+subplot(3,3,8);
+[H2,F2] = freqz(Vo2,1,4096,Fs);
+plot(F2 , 20*log10(abs(H2)));
+title('Clipping stage freq response');
+
+subplot(3,3,9);
+semilogx(F2 , 20*log10(abs(H2)));
+title('Clipping stage freq response');
