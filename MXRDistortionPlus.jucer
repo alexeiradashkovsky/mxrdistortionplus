@@ -5,6 +5,14 @@
               jucerFormatVersion="1" companyName="BrutalARAudio">
   <MAINGROUP id="DASlYp" name="MXRDistortionPlus">
     <GROUP id="{99D0CB6C-2964-54D3-B838-D69B117934D1}" name="Source">
+      <FILE id="v9XY7L" name="PedalComponent.cpp" compile="1" resource="0"
+            file="Source/PedalComponent.cpp"/>
+      <FILE id="rJNSdE" name="PedalComponent.h" compile="0" resource="0"
+            file="Source/PedalComponent.h"/>
+      <FILE id="KBk7uh" name="Clipping.cpp" compile="1" resource="0" file="Source/Clipping.cpp"/>
+      <FILE id="qwe4FM" name="Clipping.h" compile="0" resource="0" file="Source/Clipping.h"/>
+      <FILE id="fgHP1i" name="Distortion.cpp" compile="1" resource="0" file="Source/Distortion.cpp"/>
+      <FILE id="Ny05Wl" name="Distortion.h" compile="0" resource="0" file="Source/Distortion.h"/>
       <FILE id="T7lNDU" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="uKQNtV" name="PluginProcessor.h" compile="0" resource="0"

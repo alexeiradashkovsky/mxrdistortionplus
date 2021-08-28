@@ -9,6 +9,8 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "Distortion.h"
+#include "Clipping.h"
 
 //==============================================================================
 /**
@@ -53,7 +55,12 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
+    float distortionValue = 0.5f;
+    float levelValue = 0.5f;
+    bool  effectOn = true;
 private:
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MXRDistortionPlusAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MXRDistortionPlusAudioProcessor)
+    Distortion distortion;
+    Clipping clipping;
 };

@@ -19,7 +19,9 @@ MXRDistortionPlusAudioProcessor::MXRDistortionPlusAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       )
+                       ),
+    distortion(distortionValue),
+    clipping(levelValue)
 #endif
 {
 }
@@ -144,17 +146,21 @@ void MXRDistortionPlusAudioProcessor::processBlock (juce::AudioBuffer<float>& bu
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    // This is the place where you'd normally do the guts of your plugin's
-    // audio processing...
-    // Make sure to reset the state if your inner loop is processing
-    // the samples and the outer loop is handling the channels.
-    // Alternatively, you can process the samples with the channels
-    // interleaved by keeping the same state.
+    distortion.setKnob(distortionValue);
+    clipping.setKnob(levelValue);
+
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
-        auto* channelData = buffer.getWritePointer (channel);
-
-        // ..do something to the data...
+        for (int n = 0; n < buffer.getNumSamples(); ++n) {
+            float x = buffer.getReadPointer(channel)[n];
+            if (effectOn) {
+                float ds = distortion.processSample(x);
+                //float o = tone.processSample(dis);
+                buffer.getWritePointer(channel)[n] = clipping.processSample(ds);
+            } else {
+                buffer.getWritePointer(channel)[n] = x;
+            }
+        }
     }
 }
 
