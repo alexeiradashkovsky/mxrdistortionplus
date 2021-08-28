@@ -32,11 +32,11 @@ float Distortion::processSample(float Vi) {
     float Vr1 = Vi - Vb;
     float Vo = Gi * Vi - Gx1 * x1;
     if (Vo > 4.5f) {
-        Vo = 4.5;
-    } else if (Vo < -4.5) {
-        Vo = -4.5;
+        Vo = 4.5f;
+    } else if (Vo < -4.5f) {
+        Vo = -4.5f;
     }
-    x1 = (2 * Vr1 / R1) - x1;
+    x1 = (2.f * Vr1 / R1) - x1;
     return Vo;
 }
 

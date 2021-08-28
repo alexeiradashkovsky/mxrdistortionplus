@@ -1,6 +1,3 @@
-%%
-
-%%
 clc;clear; close all;
 Fs = 44100;
 Ts = 1/Fs;
@@ -14,7 +11,7 @@ C1 = 47e-9;
 R1 = Ts/(2*C1);
 R3 = 4700;
 R4 = 1e6;
-Rp = 0; % max
+Rp = 1e6; % max
 
 G = 1 / (R1+R3+Rp);
 Gb = (R3+Rp) * G;
@@ -62,7 +59,7 @@ Vi2 = Vo;
 
 % Diod parameters
 eta = 1;
-Is = 1*10^-6;
+Is = 1*10^-15;
 Vt = 26*10^-3;
 
 C2 = 1*10^-9;
@@ -71,7 +68,7 @@ R5 = 10e3;
 
 Vo2 = zeros(N,1);
 x = 0;
-Vd = 0;
+Vd = 0.1;
 thr = 0.000000001;
 b = 1.0;
 Ga = (1/R5 + 1/R2);

@@ -30,15 +30,15 @@ private:
     void updateCoefficients();
     void updateGroupedResistances();
     const float eta = 1.f;
-    const float Is = 1.e-15;
-    const float Vt = 26.e-6;
+    const float Is = 1.e-12;
+    const float Vt = 26.e-3;
 
     float Fs;
     float Ts;
 
-    float C1;
-    float R1;
-    float x1;
+    float C2;
+    float R2;
+    float x2;
 
     float R5;
     
