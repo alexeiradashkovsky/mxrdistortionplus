@@ -1,8 +1,12 @@
 # Distortion Pedal Using JUCE
 
+Thanks for lassandroan for the pedal design https://github.com/lassandroan/juce-pedal-demo
+
 ![Pedal Image](./pedal_image)
 
 ## Description
+
+
 Using circute analyze of https://www.electrosmash.com/mxr-distortion-plus-analysis  
 
 ## Calculations

@@ -4,7 +4,8 @@
     PedalCompememt.cpp
     Created: 15 Jul 2021 4:51:47pm
     Author:  radal
-
+    This class was created by Tony Lassandro. Check out
+    his GitHub page for more resources: lassandroan
   ==============================================================================
 */
 
