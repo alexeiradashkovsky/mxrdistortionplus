@@ -11,7 +11,7 @@ C1 = 47e-9;
 R1 = Ts/(2*C1);
 R3 = 4700;
 R4 = 1e6;
-Rp = 1e6; % max
+Rp = 0; % max
 
 G = 1 / (R1+R3+Rp);
 Gb = (R3+Rp) * G;
