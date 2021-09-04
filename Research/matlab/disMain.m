@@ -6,15 +6,44 @@ t = [0:Ts:0.01].';
 
 Vi = 0.1* sin(2*pi*f*t);
 
+inVo = input_stage(Vi, Ts);
+subplot(1,3,1);
+plot(t, inVo);
+subplot(1,3,2);
+[H1,F1] = freqz(inVo,1,4096,Fs);
+plot(F1 , 20*log10(abs(H1)));
+title('Effect Vi freq response');
 
-distVo = distortion_stage(Vi, Ts, 0);
+subplot(1,3,3);
+semilogx(F1 , 20*log10(abs(H1)));
+title('Effect Vi freq response');
+
+figure;
+
+
+distVo = distortion_stage(inVo, Ts, 0);
 Vo = clipping_stage(distVo, Ts);
 
 
 % Waveform
-subplot(3,3,2);
+subplot(3,3,1);
 plot(t,Vi);
 title('Effect Vi');
+subplot(3,3,2);
+[Hi,Fi] = freqz(Vi,1,4096,Fs);
+plot(Fi , 20*log10(abs(Hi)));
+title('Effect Vi freq response');
+
+subplot(3,3,3);
+semilogx(Fi , 20*log10(abs(Hi)));
+title('Effect Vi freq response');
+
+
+
+
+
+
+
 
 subplot(3,3,4);
 plot(t, distVo);

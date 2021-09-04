@@ -1,6 +1,6 @@
 function Vo = clipping_stage(Vi, Ts)
 
-    N = length(Vi)
+    N = length(Vi);
     % Diod parameters
     eta = 1;
     Is = 1*10^-15;

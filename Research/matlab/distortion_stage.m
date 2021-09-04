@@ -1,7 +1,7 @@
 function Vo = distortion_stage(Vi, Ts, Rp)
 
 
-    N = length(Vi)
+    N = length(Vi);
     C1 = 47e-9;
     R1 = Ts/(2*C1);
     R3 = 4700;
