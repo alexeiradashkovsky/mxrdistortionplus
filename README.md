@@ -17,6 +17,13 @@ Using circute analyze of https://www.electrosmash.com/mxr-distortion-plus-analys
 ![Clipping Section](./Research/final_clipping.png)
 
 ## Spice Simualtion
+### spice_simulation_distortion_pot_min
+### spice_simulation_distortion_pot_max
+![signal_max](./Research/spice_plot.PNG)
+#### Distortion FFT
+![fft_distortion_max](./Research/fft_distortion_max.PNG)
+#### Out FFT
+![fft_out_max](./Research/fft_final_max.PNG)
 ## Matlab Simulation
 ### matlab_simulation_distortion_pot_min
 ![Pot Min](./Research/matlab_simulation_distortion_pot_min.png)  

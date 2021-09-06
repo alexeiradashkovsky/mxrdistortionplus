@@ -97,6 +97,15 @@ void MXRDistortionPlusAudioProcessor::prepareToPlay (double sampleRate, int samp
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
+    distortion.prepare(sampleRate);
+    clipping.prepare(sampleRate);
+
+    juce::dsp::ProcessSpec spec;
+    spec.maximumBlockSize = samplesPerBlock;
+    spec.sampleRate = sampleRate;
+    spec.numChannels = 2;
+    iir.state = juce::dsp::IIR::Coefficients<float>::makeLowPass(sampleRate, 13000.0);
+    iir.prepare(spec);
 }
 
 void MXRDistortionPlusAudioProcessor::releaseResources()
@@ -162,6 +171,10 @@ void MXRDistortionPlusAudioProcessor::processBlock (juce::AudioBuffer<float>& bu
             }
         }
     }
+
+    // clean those high frequences
+    juce::dsp::AudioBlock<float> block(buffer);
+    iir.process(juce::dsp::ProcessContextReplacing<float>(block));
 }
 
 //==============================================================================

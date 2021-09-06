@@ -63,4 +63,6 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MXRDistortionPlusAudioProcessor)
     Distortion distortion;
     Clipping clipping;
+
+    juce::dsp::ProcessorDuplicator<juce::dsp::IIR::Filter<float>, juce::dsp::IIR::Coefficients<float>> iir;
 };
