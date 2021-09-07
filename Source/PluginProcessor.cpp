@@ -104,7 +104,7 @@ void MXRDistortionPlusAudioProcessor::prepareToPlay (double sampleRate, int samp
     spec.maximumBlockSize = samplesPerBlock;
     spec.sampleRate = sampleRate;
     spec.numChannels = 2;
-    iir.state = juce::dsp::IIR::Coefficients<float>::makeLowPass(sampleRate, 13000.0);
+    iir.state = juce::dsp::IIR::Coefficients<float>::makeLowPass(sampleRate, 5000.0);
     iir.prepare(spec);
 }
 
@@ -157,6 +157,7 @@ void MXRDistortionPlusAudioProcessor::processBlock (juce::AudioBuffer<float>& bu
 
     distortion.setKnob(distortionValue);
     clipping.setKnob(levelValue);
+
 
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {

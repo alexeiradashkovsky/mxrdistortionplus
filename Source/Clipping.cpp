@@ -17,7 +17,7 @@ Clipping::Clipping(float levelKnob)
  C2(1.e-9),
  x2(0.f),
  R5(10.e3),
- Vd(0.1f),
+ Vd(0.0f),
  thr(0.00000001f) {
     updateCoefficients();
     setKnob(levelKnob);

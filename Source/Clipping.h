@@ -29,8 +29,8 @@ public:
 private:
     void updateCoefficients();
     void updateGroupedResistances();
-    const float eta = 1.f;
-    const float Is = 1.e-12;
+    const float eta = 2.f;
+    const float Is = 1.e-6;
     const float Vt = 26.e-3;
 
     float Fs;

@@ -32,7 +32,7 @@ private:
     MXRDistortionPlusAudioProcessor& audioProcessor;
 
     juce::Rectangle<int> PedalSize = { 265,475 };
-    juce::StringRef PedalName = "Disprtion Plus";
+    juce::StringRef PedalName = "BrutalARAudio";
     juce::StringRef PedalShortName = "DS-PLUS";
     KnobNames PedalKnobNames = { "Distortion", "Level" };
     juce::Colour PedalColour = juce::Colour(0xFFFFFB67);
